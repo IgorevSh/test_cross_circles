@@ -6,7 +6,7 @@
   "scripts": {
     "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
     "start:backend": "cd backend && npx nest start --watch",
-    "start:frontend": "cd frontend && npx http-server -p 8080 -c-1",
+    "start:frontend": "cd frontend && npx http-server -p 8081 -c-1",
     "build": "cd backend && npx nest build",
     "start:prod": "cd backend && node dist/main",
     "format": "prettier --write \"backend/src/**/*.ts\" \"backend/test/**/*.ts\"",
