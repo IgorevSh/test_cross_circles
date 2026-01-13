@@ -4,7 +4,7 @@
   "description": "Tic-Tac-Toe game with Telegram bot",
   "main": "backend/dist/main.js",
   "scripts": {
-    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start": "concurrently \"npm run start:backend\"",
     "start:backend": "cd backend && npx nest start --watch",
     "start:frontend": "cd frontend && npx http-server -p 8081 -c-1",
     "build": "cd backend && npx nest build",

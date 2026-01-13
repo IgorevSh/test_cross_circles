@@ -36,10 +36,11 @@ export class TelegramService implements OnModuleInit {
         '✨ Привет! Давай сыграем в крестики-нолики! ✨\n\n' +
         'Доступные команды:\n' +
         '🎮 /game - Играть прямо в боте\n' +
-        '🌐 /site - Играть на сайте\n\n' +
-        'Ты играешь крестиками (X), я - ноликами (O).',
+        // '🌐 /site - Играть на сайте\n\n' +
+        'Ты играешь крестиками (X), я - ноликами (O).'+
+          'После победы я вышлю тебе промокод 🙃',
         Markup.keyboard([
-          ['🎮 /game', '🌐 /site']
+          ['🎮 /game']
         ]).resize()
       );
     });
@@ -50,23 +51,23 @@ export class TelegramService implements OnModuleInit {
     });
 
     // Обработчик команды /site
-    this.bot.command('site', (ctx) => {
-      const frontendUrl = process.env.FRONTEND_URL || 'https://google.com';
-      const chatId = ctx.chat?.id || ctx.from?.id;
-      const gameUrl = `${frontendUrl}?chatId=${chatId}`;
-      
-      ctx.reply(
-        '🌐 Игра на сайте\n\n' +
-        'Перейди по ссылке, чтобы играть в красивом интерфейсе:\n\n' +
-        `<a href="${gameUrl}">🎮 Начать игру</a>`,
-        {
-          parse_mode: 'HTML',
-          reply_markup: Markup.inlineKeyboard([
-            [Markup.button.url('🎮 Открыть игру', gameUrl)]
-          ]).reply_markup
-        }
-      );
-    });
+    // this.bot.command('site', (ctx) => {
+    //   const frontendUrl = process.env.FRONTEND_URL || 'https://google.com';
+    //   const chatId = ctx.chat?.id || ctx.from?.id;
+    //   const gameUrl = `${frontendUrl}?chatId=${chatId}`;
+    //
+    //   ctx.reply(
+    //     '🌐 Игра на сайте\n\n' +
+    //     'Перейди по ссылке, чтобы играть в красивом интерфейсе:\n\n' +
+    //     `<a href="${gameUrl}">🎮 Начать игру</a>`,
+    //     {
+    //       parse_mode: 'HTML',
+    //       reply_markup: Markup.inlineKeyboard([
+    //         [Markup.button.url('🎮 Открыть игру', gameUrl)]
+    //       ]).reply_markup
+    //     }
+    //   );
+    // });
 
     // Обработчик callback от inline-кнопок
     this.bot.action(/^move_(\d+)$/, async (ctx) => {
