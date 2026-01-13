@@ -5,7 +5,6 @@ class TicTacToe {
         this.board = Array(9).fill('');
         this.currentPlayer = 'X';
         this.gameOver = false;
-        this.isComputerTurn = false; // Флаг для отслеживания хода компьютера
         this.cells = document.querySelectorAll('.cell');
         this.currentPlayerText = document.querySelector('.current-player');
         this.modal = document.getElementById('resultModal');
@@ -30,8 +29,7 @@ class TicTacToe {
     }
     
     handleCellClick(index) {
-        // Блокируем клики если игра окончена, клетка занята или ходит компьютер
-        if (this.gameOver || this.board[index] !== '' || this.isComputerTurn) {
+        if (this.gameOver || this.board[index] !== '') {
             return;
         }
         
@@ -48,10 +46,6 @@ class TicTacToe {
             return;
         }
         
-        // Блокируем поле и показываем, что ходит компьютер
-        this.blockBoard();
-        this.currentPlayerText.textContent = '🤔 Ход компьютера...';
-        
         // Ход компьютера
         setTimeout(() => {
             const computerMove = this.getComputerMove();
@@ -65,13 +59,8 @@ class TicTacToe {
                 
                 if (this.isBoardFull()) {
                     this.endGame('draw');
-                    return;
                 }
             }
-            
-            // Разблокируем поле после хода компьютера
-            this.unblockBoard();
-            this.currentPlayerText.textContent = 'Ваш ход!';
         }, 500);
     }
     
@@ -213,41 +202,15 @@ class TicTacToe {
         this.modal.classList.add('show');
     }
     
-    blockBoard() {
-        this.isComputerTurn = true;
-        this.cells.forEach(cell => {
-            if (!cell.classList.contains('disabled')) {
-                cell.classList.add('disabled');
-                cell.style.pointerEvents = 'none';
-                cell.style.opacity = '0.6';
-            }
-        });
-    }
-    
-    unblockBoard() {
-        this.isComputerTurn = false;
-        this.cells.forEach(cell => {
-            // Разблокируем только свободные клетки
-            if (cell.textContent === '') {
-                cell.classList.remove('disabled');
-                cell.style.pointerEvents = 'auto';
-                cell.style.opacity = '1';
-            }
-        });
-    }
-    
     resetGame() {
         this.board = Array(9).fill('');
         this.currentPlayer = 'X';
         this.gameOver = false;
-        this.isComputerTurn = false;
         this.modal.classList.remove('show');
         
         this.cells.forEach(cell => {
             cell.textContent = '';
             cell.classList.remove('x', 'o', 'disabled');
-            cell.style.pointerEvents = 'auto';
-            cell.style.opacity = '1';
         });
         
         this.currentPlayerText.textContent = 'Ваш ход!';

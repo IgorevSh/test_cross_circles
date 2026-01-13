@@ -1,6 +1,7 @@
 # Dependencies
 node_modules/
 backend/node_modules/
+# Все зависимости в корне, но оставляем на случай если будут локальные
 
 # Build outputs
 dist/

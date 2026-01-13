@@ -17,12 +17,15 @@
 
 **Примечание:** `TELEGRAM_CHAT_ID` больше не обязателен, так как игра работает прямо в боте. Но если вы хотите использовать старые методы API для отправки сообщений, можете оставить его.
 
-### 2. Установка зависимостей Backend
+### 2. Установка зависимостей
+
+Все зависимости находятся в корневом `package.json`, поэтому достаточно одной команды:
 
 ```bash
-cd backend
 npm install
 ```
+
+Эта команда установит все зависимости (и для backend, и для frontend) в корневую папку `node_modules`.
 
 ### 3. Настройка переменных окружения
 
@@ -44,37 +47,43 @@ FRONTEND_URL=http://localhost:8080
 - `FRONTEND_URL` - URL вашего фронтенда (по умолчанию `http://localhost:8080`)
 - `TELEGRAM_CHAT_ID` - опционален, нужен только для совместимости со старым API
 
-### 4. Запуск Backend
+### 4. Запуск приложения
+
+**⭐ Самый простой способ - запуск одной командой:**
 
 ```bash
+npm start
+```
+
+Эта команда запустит одновременно:
+- ✅ Backend на `http://localhost:3000`
+- ✅ Frontend на `http://localhost:8080`
+
+**Альтернативные способы запуска:**
+
+Запуск по отдельности:
+```bash
+# Только backend
+npm run start:backend
+
+# Только frontend
+npm run start:frontend
+```
+
+Или вручную:
+```bash
+# Backend
 cd backend
 npm run start:dev
-```
 
-Сервер запустится на `http://localhost:3000`
-
-### 5. Запуск Frontend (опционально, для игры на сайте)
-
-Если хотите использовать веб-интерфейс:
-
-**Вариант 1: Простой HTTP сервер (Python)**
-```bash
+# Frontend (в другом терминале)
 cd frontend
 python -m http.server 8080
+# или
+npx http-server -p 8080
 ```
 
-**Вариант 2: Node.js http-server**
-```bash
-npm install -g http-server
-cd frontend
-http-server -p 8080
-```
-
-**Вариант 3: Live Server (VS Code расширение)**
-- Установите расширение "Live Server" в VS Code
-- Правой кнопкой на `index.html` → "Open with Live Server"
-
-### 6. Запуск игры
+### 5. Запуск игры
 
 После запуска backend сервера:
 
